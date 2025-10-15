@@ -11,7 +11,7 @@ Dù bạn là chuyên gia hay chỉ mới bắt đầu hành trình của mình 
 |---------------|-----------------------------------------------------------|--------------------------------|
 | Node Proxmox  |  python3-pip, proxmoxer, requests, user ansible, SSH key  |  Cho phép chạy module qua SSH  |
 | Control node  |  Ansible, collection proxmox-galaxy, proxmoxer, requests  |  Điều khiển và gọi API Proxmox | 
-
+|---------------|-----------------------------------------------------------|--------------------------------|
 - Các node Proxmox đều cần cài Python3 và Pip, tiếp đến là proxmoxer và requests.
 
 ```bash
