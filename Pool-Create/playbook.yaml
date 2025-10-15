@@ -9,17 +9,17 @@
         api_host: "{{ hostvars['pve01']['ansible_host'] }}"
         api_user: "{{ api_user }}"
         api_password: "{{ api_password }}"
-        poolid: hoangnh
+        poolid: modopho
         comment: 'New pool create by ansible'
-      register: result
+      register: create_result
 
-    - name: Delete the Proxmox VE pool
-      community.proxmox.proxmox_pool:
-        api_host: "{{ hostvars['pve01']['ansible_host'] }}"
-        api_user: "{{ api_user }}"
-        api_password: "{{ api_password }}"
-        poolid: hoangnh
-        state: absent
+    # - name: Delete the Proxmox VE pool
+    #   community.proxmox.proxmox_pool:
+    #     api_host: "{{ hostvars['pve01']['ansible_host'] }}"
+    #     api_user: "{{ api_user }}"
+    #     api_password: "{{ api_password }}"
+    #     poolid: "{{ create_result.poolid }}"
+    #     state: absent
 
 
 # - name: Add or Remove MV from pool
