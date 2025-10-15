@@ -1,0 +1,17 @@
+# Basic Information, thêm sửa theo môi trường triển khai
+api_host: "{{api_host}}"
+api_user: root@pam
+api_password: Nutanix/4u
+cluster_name: MDP-test
+master_node_ip: 10.200.8.20  # Thay IP node chính của bạn
+# Danh sách các node ngoài master (ví dụ tên hoặc IP trong inventory)
+other_nodes_list:
+  - 10.200.8.22
+network_template_src: interfaces.j2
+network_template_dest: /etc/network/interfaces
+
+#Ip corosync , mgmt 
+corosync_ip: 10.200.8.22
+corosync_sub: 
+corosync_iface: eth0
+mgmt_ip:
