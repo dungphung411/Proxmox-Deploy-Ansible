@@ -1,8 +1,8 @@
 - name: Configure Proxmox network interfaces
   hosts: proxmox_nodes
   become: yes
-  vars:
-     vmbr0_ip: 10.200.8.21/24
+  vars_files:
+    - ../variables.yaml
   tasks:
     - name: Upload interfaces config
       template:
