@@ -1,20 +1,29 @@
+name: Proxmox VE Cluster Management
+hosts: proxmoxmain
+become: yes
+gather_facts: no
+vars_files:
+  - ../variables.yaml
+task: 
+
 - name: Create a Proxmox VE Cluster
   community.proxmox.proxmox_cluster:
     state: present
-    api_host: proxmoxhost
-    api_user: root@pam
-    api_password: password123
+    api_host: proxmoxmain
+    api_user: "{{ api_user }}"
+    api_password: "{{ api_password }}"
     validate_certs: false
-    link0: 10.10.1.1
-    link1: 10.10.2.1
-    cluster_name: "devcluster"
+    link0: "{{ corosync_ip }}"  # Corosync IP
+    # link1: "{corosync_sub}}"  # Optional, IP corosync dự phòng
+    cluster_name: "{{ cluster_name }}"
+  register: cluster_info
 
-- name: Join a Proxmox VE Cluster
-  community.proxmox.proxmox_cluster:
-    state: present
-    api_host: proxmoxhost
-    api_user: root@pam
-    api_password: password123
-    master_ip: "{{ primary_node }}"
-    fingerprint: "{{ cluster_fingerprint }}"
-    cluster_name: "devcluster"
+# - name: Join a Proxmox VE Cluster
+#   community.proxmox.proxmox_cluster:
+#     state: present
+#     api_host: proxmoxhost
+#     api_user: root@pam
+#     api_password: password123
+#     master_ip: "{{ primary_node }}"
+#     fingerprint: "{{ cluster_fingerprint }}"
+#     cluster_name: "devcluster"
