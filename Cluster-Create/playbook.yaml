@@ -1,5 +1,5 @@
 name: Proxmox VE Cluster Management
-hosts: proxmoxmain
+hosts: localhost
 # become: yes
 gather_facts: no
 vars_files:
@@ -9,7 +9,7 @@ task:
 - name: Create a Proxmox VE Cluster
   community.proxmox.proxmox_cluster:
     state: present
-    api_host: "{{ centre_node_ip }}"
+    api_host: "{{ hostvars['pve01']['ansible_host'] }}"
     api_user: "{{ api_user }}"
     api_password: "{{ api_password }}"
     validate_certs: false
