@@ -4,7 +4,7 @@
   tasks:
     - name: Create new Proxmox VE pool
       community.proxmox.proxmox_pool:
-        api_host: pve01
+        api_host: "{{ hostvars['pve01']['ansible_host'] }}"
         api_user: root@pam
         api_password: Nutanix/4u
         poolid: hoangnh
