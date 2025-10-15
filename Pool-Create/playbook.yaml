@@ -1,40 +1,45 @@
 - name : Create and do something with pool
   hosts: proxmoxmain
+  vars_files:
+    - ../variables.yaml
   gather_facts: false
   tasks:
     - name: Create new Proxmox VE pool
       community.proxmox.proxmox_pool:
         api_host: "{{ hostvars['pve01']['ansible_host'] }}"
-        api_user: root@pam
-        api_password: Nutanix/4u
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
         poolid: hoangnh
         comment: 'New pool create by ansible'
+      register: result
 
-    # - name: Delete the Proxmox VE pool
-    #   community.proxmox.proxmox_pool:
-    #     api_host: pve02
-    #     api_user: root@pam
-    #     api_password: Nutanix/4u
-    #     poolid: test
-    #     state: absent
+    - name: Delete the Proxmox VE pool
+      community.proxmox.proxmox_pool:
+        api_host: "{{ hostvars['pve01']['ansible_host'] }}"
+        api_user: "{{ api_user }}"
+        api_password: "{{ api_password }}"
+        poolid: hoangnh
+        state: absent
 
 
-- name: Add or Remove MV from pool
-  hosts: proxmoxmain
-  gather_facts: true
-  tasks:
-    - name: Add new VM to Proxmox VE pool
-      community.proxmox.proxmox_pool_member:
-        api_host: pve01
-        api_user: root@pam
-        api_password: Nutanix/4u
-        poolid: modopho
-        type: vm
-        member: "{{ item }}"
-      loop:
-          - "143"
-          - "144"
-          - "145"
+# - name: Add or Remove MV from pool
+#   hosts: proxmoxmain
+#   gather_facts: true
+#   tasks:
+#     - name: Add new VM to Proxmox VE pool
+#       community.proxmox.proxmox_pool_member:
+#         api_host: pve01
+#         api_user: root@pam
+#         api_password: Nutanix/4u
+#         poolid: modopho
+#         type: vm
+#         member: "{{ item }}"
+#       loop:
+#           - "143"
+#           - "144"
+#           - "145"
+
+
 #     - name: Add new storage to Proxmox VE pool
 #       community.proxmox.proxmox_pool_member:
 #         api_host: node1
