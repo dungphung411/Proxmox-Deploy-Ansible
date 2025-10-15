@@ -1,5 +1,9 @@
 all:
   children:
+    localhost:
+      hosts:
+        localhost:
+          ansible_connection: local
     proxmoxmain:   # Centre Node, usually the first node in the cluster
       hosts:
         pve01:
