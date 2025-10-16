@@ -20,7 +20,7 @@ pve02:
   vmbr0_ip: " "
   vmbr1_ip: ""
   gateway_j2: ""
-network_template_src: interfaces.j2
+network_template_src: interface.j2
 network_template_dest: /etc/network/interfaces
 
 #Ip corosync , mgmt 
