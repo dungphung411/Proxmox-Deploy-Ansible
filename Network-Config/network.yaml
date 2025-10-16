@@ -1,3 +1,23 @@
+# - name: Configure Proxmox network interfaces
+#   hosts: proxmoxmain, proxmoxmember
+#   gather_facts: false
+#   vars_files:
+#     - ../variables.yaml
+#   tasks:
+#     - name: Upload interfaces config
+#       template:
+#         src: interface.j2
+#         dest: /etc/network/interfaces
+#         owner: root
+#         group: root
+#         mode: 0644
+
+#     - name: Restart networking (Debian/Ubuntu)
+#       ansible.builtin.systemd:
+#         name: networking
+#         state: restarted
+#       when: ansible_os_family == "Debian"
+
 - name: Configure Proxmox network interfaces
   hosts: proxmoxmain, proxmoxmember
   gather_facts: false
@@ -6,11 +26,12 @@
   tasks:
     - name: Upload interfaces config
       template:
-        src: interfaces.j2
-        dest: /etc/network/interfaces
-        owner: root
-        group: root
-        mode: 0644
+        src: "{{ network_template_src }}"
+        dest: "{{ network_template_dest }}"
+      vars:
+        vmbr0_ip: "{{ vars[inventory_hostname]['vmbr0_ip'] }}"
+        vmbr1_ip: "{{ vars[inventory_hostname]['vmbr1_ip'] }}"
+        gateway_j2: "{{ vars[inventory_hostname]['gateway_j2'] }}"
 
     - name: Restart networking (Debian/Ubuntu)
       ansible.builtin.systemd:
