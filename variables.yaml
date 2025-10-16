@@ -11,7 +11,15 @@ node_join_2:
 node_join_3:
 
 
-
+#J2 file variable
+pve01:
+  vmbr0_ip: "10.200.8.22/24"
+  vmbr1_ip: "192.168.1.1/24"
+  gateway_j2: "10.200.8.254"
+pve02:
+  vmbr0_ip: " "
+  vmbr1_ip: ""
+  gateway_j2: ""
 network_template_src: interfaces.j2
 network_template_dest: /etc/network/interfaces
 

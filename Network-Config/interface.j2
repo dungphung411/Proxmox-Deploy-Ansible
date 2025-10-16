@@ -2,24 +2,33 @@
 
 auto lo
 iface lo inet loopback
+iface ens192 inet manual
 iface ens224 inet manual
+
 
 auto vmbr0
 iface vmbr0 inet static
     address {{ vmbr0_ip }}
+    gateway {{ gateway_j2 }}
+    bridge-ports ens192
+    bridge-stp off
+    bridge-fd 0
+    bridge-vlan-aware yes
+    bridge-vids 2-4094
+
+auto vmbr1
+iface vmbr1 inet manual
+    address {{ vmbr1_ip }}
     bridge-ports ens224
     bridge-stp off
     bridge-fd 0
     bridge-vlan-aware yes
     bridge-vids 2-4094
 
-auto vmbr0.208
-iface vmbr0.208 inet static
-    address 10.200.8.20/24
-    gateway 10.200.8.254
+auto vmbr1.208
+iface vmbr0.208 inet manual
 
 auto vmbr0.206
-iface vmbr0.206 inet static
-    address 10.200.6.80/24
+iface vmbr0.206 inet manual
 
 source /etc/network/interfaces.d/*
